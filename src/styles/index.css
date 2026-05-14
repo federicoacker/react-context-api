@@ -36,7 +36,7 @@ body {
   z-index: 999;
 }
 .expanded-main-header{
-  height: 25vh;
+  height: 40vh;
   position: sticky;
   top: 0;
   left: 0;
@@ -64,7 +64,7 @@ body {
 }
 .contracted-main-wrapper {
   height: 100%;
-  max-height: 65vh;
+  max-height: 50vh;
 }
 
 .brand-logo {

@@ -6,11 +6,11 @@ import useProducts from "../hooks/useProducts.js"
 
 function Products() {
     const { data, loadingError, loaded } = useProducts();
-    const { budgetMode, maxUserPrice } = useBudget();
+    const { budgetMode, maxUserPrice, minUserPrice } = useBudget();
     let finalProducts = data;
 
     if(budgetMode){
-        finalProducts = data.filter((product) => product.price <= maxUserPrice);
+        finalProducts = data.filter((product) => product.price <= maxUserPrice && product.price >= minUserPrice);
     }
 
     return (

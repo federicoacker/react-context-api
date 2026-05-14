@@ -1,35 +1,39 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { createContext } from "react"
 import { ProductsContext } from "./ProductsContext";
 
 const BudgetContext = createContext(null);
 
 function BudgetProvider({ children }) {
-    const {data} = useContext(ProductsContext);
+    const { data } = useContext(ProductsContext);
     const [budgetMode, setBudgetMode] = useState(false);
-    const [priceArray, setPriceArray] = useState([]);
-    const [maxPrice, setMaxPrice] = useState(Math.max(...priceArray));
-    const [minPrice, setMinPrice] = useState(Math.min(...priceArray));
+    const priceArray = data.map(product => parseFloat(product.price));
+    const maxPrice = Math.max(...priceArray);
+    const minPrice = Math.min(...priceArray);
     const [maxUserPrice, setMaxUserPrice] = useState(maxPrice);
-    console.log(maxPrice,minPrice);
-    useEffect(()=>{
-        if(priceArray.length === 0){
-            setPriceArray(data.map(product => parseFloat(product.price)));
-        }
-        if(!isFinite(maxPrice)){
-            setMaxPrice(Math.max(...priceArray));
-        }
-        if(!isFinite(minPrice)){
-            setMinPrice(Math.min(...priceArray));
-        }
-        if(!isFinite(maxUserPrice)){
-            setMaxUserPrice(maxPrice);
-        }
-    },[data,priceArray]);
+    const [minUserPrice, setMinUserPrice] = useState(minPrice);
+
+    if (!isFinite(maxUserPrice)) {
+        setMaxUserPrice(maxPrice);
+    }
+    if (!isFinite(minUserPrice)) {
+        setMinUserPrice(minPrice);
+    }
+    if (maxUserPrice < minUserPrice) {
+        setMinUserPrice(Math.max(minPrice, maxUserPrice - 10))
+    }
+    if (minUserPrice > maxUserPrice) {
+        setMaxUserPrice(Math.min(maxPrice, minUserPrice + 10));
+    }
 
     const changeMaxUserPrice = (value) => {
         setMaxUserPrice(value);
+
     }
+    const changeMinUserPrice = (value) => {
+        setMinUserPrice(value);
+    }
+
     const toggleBudgetMode = () => {
         setBudgetMode(!budgetMode);
     }
@@ -40,12 +44,14 @@ function BudgetProvider({ children }) {
         maxPrice,
         minPrice,
         maxUserPrice,
-        changeMaxUserPrice
+        changeMaxUserPrice,
+        minUserPrice,
+        changeMinUserPrice
     }
 
     return (
-        <BudgetContext value={ value }>
-            { children }
+        <BudgetContext value={value}>
+            {children}
         </BudgetContext>
     )
 }
