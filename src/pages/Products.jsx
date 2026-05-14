@@ -1,13 +1,12 @@
 import { Container, Row } from "react-bootstrap";
-import useFetch from "../hooks/useFetch.js";
 import Product from "../components/Product.jsx";
-import { useContext } from "react";
-import { BudgetContext } from "../contexts/BudgetContext.jsx";
+import useBudget from "../hooks/useBudget.js";
+import useProducts from "../hooks/useProducts.js"
 
-const API_URL = "https://fakestoreapi.com/products"
+
 function Products() {
-    const { data, loadingError, loaded } = useFetch(API_URL);
-    const { budgetMode } = useContext(BudgetContext);
+    const { data, loadingError, loaded } = useProducts();
+    const { budgetMode } = useBudget();
     let finalProducts = data;
 
     if(budgetMode){

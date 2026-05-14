@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, NavLink } from "react-router";
 import BudgetButton from "./BudgetButton";
+import BudgetRange from "./BudgetRange";
 
 function CustomNavbar() {
     return (
@@ -44,6 +45,7 @@ function CustomNavbar() {
                     </Nav>
                 </Navbar.Collapse>
                 <BudgetButton />
+                
             </Container>
         </Navbar>
     )

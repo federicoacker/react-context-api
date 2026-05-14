@@ -5,17 +5,20 @@ const BudgetContext = createContext(null);
 
 function BudgetProvider({ children }) {
     const [budgetMode, setBudgetMode] = useState(false);
+    const [maxPrice, setMaxPrice] = useState("");
+
     const toggleBudgetMode = () => {
         setBudgetMode(!budgetMode);
     }
 
     const value = {
-        budgetMode, 
+        budgetMode,
+        maxPrice, 
         toggleBudgetMode
     }
-    
+
     return (
-        <BudgetContext value={value}>
+        <BudgetContext value={ value }>
             { children }
         </BudgetContext>
     )
