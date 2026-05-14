@@ -1,9 +1,11 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import BudgetButton from "./BudgetButton";
 import BudgetRange from "./BudgetRange";
 
 function CustomNavbar() {
+    const location = useLocation();
+    
     return (
         <div className="bg-body-tertiary">
             <Navbar expand="lg" className="bg-body-tertiary flex-grow-1">
@@ -45,7 +47,9 @@ function CustomNavbar() {
                             </NavLink>
                         </Nav>
                     </Navbar.Collapse>
-                    <BudgetButton />
+                    { location.pathname === "/products" &&
+                        <BudgetButton />
+                    }
                 </Container>
 
             </Navbar>
