@@ -1,9 +1,10 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, NavLink } from "react-router";
+import BudgetButton from "./BudgetButton";
 
 function CustomNavbar() {
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="bg-body-tertiary flex-grow-1">
             <Container>
                 <Navbar.Brand className="brand-logo">
                     <Link to="/" className="text-decoration-none">
@@ -42,6 +43,7 @@ function CustomNavbar() {
                         </NavLink>
                     </Nav>
                 </Navbar.Collapse>
+                <BudgetButton />
             </Container>
         </Navbar>
     )
