@@ -1,14 +1,16 @@
 import { Outlet } from "react-router";
+import useBudget from "../hooks/useBudget.js";
 import Header from "../components/Header/Header.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import Ad from "../components/Ad.jsx";
 
 function PageLayout() {
+    const {budgetMode} = useBudget();
     return (
         <>
             <div className="d-flex flex-column min-vh-100 bg-dark">
                 <Header />
-                <div className="d-flex flex-grow-1 main-wrapper">
+                <div className={`d-flex flex-grow-1 ${budgetMode ? "contracted-main-wrapper" : "main-wrapper"}`}>
                     <div className="d-flex align-items-center ad-wrapper px-2 border rounded border-white">
                         <Ad starterIndex={1}/>
                     </div>
