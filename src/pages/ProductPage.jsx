@@ -1,17 +1,16 @@
-import { useNavigate, useParams } from "react-router";
-import useFetch from "../hooks/useFetch";
+import { useNavigate, useParams, Navigate } from "react-router";
+import useProducts from "../hooks/useProducts";
 import ProductMoreInfo from "../components/ProductMoreInfo";
-const API_URL = "https://fakestoreapi.com/products"
 
 function ProductPage() {
   const navigate = useNavigate();
   const params = useParams();
-  const { data, loadingError, loaded } = useFetch(API_URL);
+  const { data, loaded, loadingError } = useProducts();
 
   const currentProduct = data.find(product => product.id === Number(params.id));
 
   if (!currentProduct) {
-    navigate("/404");
+    return <Navigate to="/404"/>;
   }
 
   const changeProduct = (direction) => {
