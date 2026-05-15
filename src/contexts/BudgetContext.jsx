@@ -13,16 +13,17 @@ function BudgetProvider({ children }) {
     const [maxUserPrice, setMaxUserPrice] = useState(maxPrice);
     const [minUserPrice, setMinUserPrice] = useState(minPrice);
 
-    if (!isFinite(maxUserPrice)) {
+
+    if (!isFinite(maxUserPrice) && isFinite(maxPrice)) {
         setMaxUserPrice(maxPrice);
     }
-    if (!isFinite(minUserPrice)) {
+    if (!isFinite(minUserPrice) && isFinite(minPrice)) {
         setMinUserPrice(minPrice);
     }
-    if (maxUserPrice < minUserPrice) {
+    if (isFinite(maxUserPrice) && isFinite(minUserPrice) && maxUserPrice < minUserPrice) {
         setMinUserPrice(Math.max(minPrice, maxUserPrice - 10))
     }
-    if (minUserPrice > maxUserPrice) {
+    if (isFinite(maxUserPrice) && isFinite(minUserPrice) && minUserPrice > maxUserPrice) {
         setMaxUserPrice(Math.min(maxPrice, minUserPrice + 10));
     }
 
